@@ -1,0 +1,38 @@
+import { HeroSection } from '@/components/home/HeroSection'
+import { StatsBar } from '@/components/home/StatsBar'
+import { AboutSection } from '@/components/home/AboutSection'
+import { NoticesSection } from '@/components/home/NoticesSection'
+import { SponsorsSection } from '@/components/home/SponsorsSection'
+import { CommunitySection } from '@/components/home/CommunitySection'
+import { ContactSection } from '@/components/home/ContactSection'
+import { prisma } from '@/lib/prisma'
+import { DynamicEventsSection } from '@/components/home/DynamicEventsSection'
+
+export const revalidate = 60 // Revalidate every 60s
+
+export default async function HomePage() {
+  const [events, notices] = await Promise.all([
+    prisma.event.findMany({
+      where: { isActive: true, category: 'tournament' },
+      orderBy: { order: 'asc' },
+    }),
+    prisma.notice.findMany({
+      where: { isActive: true },
+      orderBy: { createdAt: 'desc' },
+      take: 4,
+    }),
+  ])
+
+  return (
+    <>
+      <HeroSection />
+      <StatsBar />
+      <DynamicEventsSection events={events} />
+      <AboutSection />
+      <NoticesSection notices={notices} />
+      <SponsorsSection />
+      <CommunitySection />
+      <ContactSection />
+    </>
+  )
+}
