@@ -4,8 +4,8 @@ set -e
 echo ">>> Ensuring database directory exists..."
 mkdir -p /data
 
-echo ">>> Running Prisma migrations..."
-npx prisma migrate deploy
+echo ">>> Pushing database schema..."
+npx prisma db push --accept-data-loss
 
 echo ">>> Starting Next.js..."
 exec npm start
