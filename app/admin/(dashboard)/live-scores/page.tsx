@@ -3,6 +3,8 @@
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
+
+export const dynamic = 'force-dynamic'
 import jwt from 'jsonwebtoken'
 import { redirect } from 'next/navigation'
 import { hasPermission } from '@/lib/auth/permissions'

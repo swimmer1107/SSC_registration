@@ -1,6 +1,8 @@
 // app/(public)/gallery/page.tsx
 import { prisma } from '@/lib/prisma'
 
+export const dynamic = 'force-dynamic'
+
 const PER_PAGE = 12
 
 export const dynamic = 'force-dynamic'

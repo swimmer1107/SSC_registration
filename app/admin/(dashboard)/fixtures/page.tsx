@@ -3,6 +3,8 @@ import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { requirePermission } from '@/lib/auth/protectRoute'
+
+export const dynamic = 'force-dynamic'
 import FixturesFilters from './FixturesFilters'
 import ConfirmButton from '@/components/ui/ConfirmButton'
 

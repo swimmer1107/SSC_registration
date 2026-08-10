@@ -3,6 +3,8 @@ import { cookies } from 'next/headers'
 import jwt from 'jsonwebtoken'
 import { redirect } from 'next/navigation'
 import { requirePermission } from '@/lib/auth/protectRoute'
+
+export const dynamic = 'force-dynamic'
 import AdminFilters from '@/components/admin/AdminFilters'
 
 export default async function AdminResultsPage({

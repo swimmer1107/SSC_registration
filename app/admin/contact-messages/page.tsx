@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation'
 import { getAdminFromCookie } from '@/lib/auth'
 import { canAccessRoute } from '@/lib/auth/permissions'
 
+export const dynamic = 'force-dynamic'
+
 export default async function AdminContactMessagesPage() {
   const admin = await getAdminFromCookie()
   if (!admin || !canAccessRoute(admin.role, '/admin/contact-messages')) {

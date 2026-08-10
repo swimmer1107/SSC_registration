@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma'
 import { requireAuth } from '@/lib/auth/protectRoute'
 import { rolePermissions } from '@/lib/rbac/permissions'
 
+export const dynamic = 'force-dynamic'
+
 // Quick actions per role
 const roleQuickActions: Record<string, { label: string; href: string; icon: string }[]> = {
   SUPER_ADMIN: [

@@ -3,6 +3,8 @@ import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import jwt from 'jsonwebtoken'
 import { redirect } from 'next/navigation'
+
+export const dynamic = 'force-dynamic'
 import ConfirmButton from '@/components/ui/ConfirmButton'
 import { sendNoticeMail } from '@/lib/mail'
 
