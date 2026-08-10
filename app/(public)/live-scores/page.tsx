@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import ParticleBackground from '@/components/visuals/ParticleBackground'
 import LiveScoresClient from '@/components/live-scores/LiveScoresClient'
 
+export const dynamic = 'force-dynamic'
+
 export default async function LiveScoresPage({
   searchParams,
 }: {

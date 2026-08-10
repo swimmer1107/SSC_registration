@@ -8,7 +8,7 @@ import { ContactSection } from '@/components/home/ContactSection'
 import { prisma } from '@/lib/prisma'
 import { DynamicEventsSection } from '@/components/home/DynamicEventsSection'
 
-export const revalidate = 60 // Revalidate every 60s
+export const dynamic = 'force-dynamic'
 
 export default async function HomePage() {
   const [events, notices] = await Promise.all([
