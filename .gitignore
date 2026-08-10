@@ -23,6 +23,13 @@
 # misc
 .DS_Store
 *.pem
+*.exe
+
+# SQLite database files
+prisma/*.db
+prisma/*.db-journal
+prisma/*.db-wal
+prisma/*.db-shm
 
 # debug
 npm-debug.log*
