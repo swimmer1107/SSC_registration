@@ -7,6 +7,8 @@ import { writeFile, unlink } from 'fs/promises'
 import path from 'path'
 import ConfirmButton from '@/components/ui/ConfirmButton'
 
+export const dynamic = 'force-dynamic'
+
 export default async function AdminGalleryPage({
   searchParams,
 }: {

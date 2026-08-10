@@ -5,8 +5,6 @@ export const dynamic = 'force-dynamic'
 
 const PER_PAGE = 12
 
-export const dynamic = 'force-dynamic'
-
 export default async function GalleryPage({
   searchParams,
 }: {
