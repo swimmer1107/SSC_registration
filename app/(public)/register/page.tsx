@@ -219,7 +219,7 @@ function RegisterForm({ user, signOut }: { user: User; signOut: () => void }) {
 
   // ── Main render ─────────────────────────────────────────────────────────────
   return (
-    <div style={{ background: 'linear-gradient(180deg,#030A03,#0a1a0a)', minHeight: '100vh', padding: '100px 24px 80px' }}>
+    <div style={{ background: 'linear-gradient(180deg,#030A03,#0a1a0a)', minHeight: '100vh', padding: '70px 24px 80px' }}>
       <div style={{ maxWidth: '1320px', margin: '0 auto' }}>
 
         {/* Responsive CSS */}
@@ -231,14 +231,11 @@ function RegisterForm({ user, signOut }: { user: User; signOut: () => void }) {
         `}</style>
 
         {/* Page header — full width */}
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <div style={{ display: 'inline-block', padding: '7px 22px', borderRadius: '9999px', background: 'rgba(76,175,80,0.12)', border: '1px solid rgba(76,175,80,0.35)', marginBottom: '20px' }}>
-            <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '12px', color: '#4CAF50', fontWeight: '600', letterSpacing: '0.15em' }}>🏆 AAGAAZ 2026</span>
-          </div>
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <h1 style={{ fontFamily: "'Bebas Neue',Impact,sans-serif", fontSize: 'clamp(2.8rem,7vw,4.5rem)', color: 'white', letterSpacing: '0.08em', marginBottom: '12px' }}>
             EVENT REGISTRATION
           </h1>
-          <div style={{ width: '120px', height: '4px', background: 'linear-gradient(90deg,transparent,#4CAF50,transparent)', margin: '0 auto 20px', boxShadow: '0 0 18px rgba(76,175,80,0.6)' }} />
+          <div style={{ width: '120px', height: '4px', background: 'linear-gradient(90deg,transparent,#4CAF50,transparent)', margin: '0 auto 16px', boxShadow: '0 0 18px rgba(76,175,80,0.6)' }} />
           <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '14px', color: 'rgba(165,214,167,0.65)', letterSpacing: '0.05em' }}>
             Select your sport and fill in the details below
           </p>
