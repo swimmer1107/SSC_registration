@@ -5,22 +5,22 @@ const prisma = new PrismaClient()
 
 async function main() {
   const sports = [
-    { name: 'Cricket', icon: '🏏', category: 'team', minTeamSize: 11, maxTeamSize: 15, registrationFee: 1500, isActive: true },
-    { name: 'Football', icon: '⚽', category: 'team', minTeamSize: 11, maxTeamSize: 18, registrationFee: 2000, isActive: true },
-    { name: 'Basketball', icon: '🏀', category: 'team', minTeamSize: 5, maxTeamSize: 10, registrationFee: 1000, isActive: true },
-    { name: 'Volleyball', icon: '🏐', category: 'team', minTeamSize: 6, maxTeamSize: 12, registrationFee: 800, isActive: true },
-    { name: 'Badminton', icon: '🏸', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 200, isActive: true },
-    { name: 'Table Tennis', icon: '🏓', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 200, isActive: true },
-    { name: 'Lawn Tennis', icon: '🎾', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 300, isActive: true },
-    { name: 'Chess', icon: '♟️', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 100, isActive: true },
-    { name: 'Athletics', icon: '🏃', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 150, isActive: true },
-    { name: 'Swimming', icon: '🏊', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 250, isActive: true },
-    { name: 'Kabaddi', icon: '🤼', category: 'team', minTeamSize: 7, maxTeamSize: 12, registrationFee: 1000, isActive: true },
-    { name: 'Kho Kho', icon: '🏃‍♂️', category: 'team', minTeamSize: 9, maxTeamSize: 12, registrationFee: 800, isActive: true },
-    { name: 'Hockey', icon: '🏑', category: 'team', minTeamSize: 11, maxTeamSize: 16, registrationFee: 1500, isActive: true },
-    { name: 'Squash', icon: '🎾', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 400, isActive: true },
-    { name: 'Wrestling', icon: '🤼‍♂️', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 300, isActive: true },
-    { name: 'Boxing', icon: '🥊', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 300, isActive: true },
+    { name: 'Cricket', category: 'team', minTeamSize: 11, maxTeamSize: 15, registrationFee: 1500, isActive: true },
+    { name: 'Football', category: 'team', minTeamSize: 11, maxTeamSize: 18, registrationFee: 2000, isActive: true },
+    { name: 'Basketball', category: 'team', minTeamSize: 5, maxTeamSize: 10, registrationFee: 1000, isActive: true },
+    { name: 'Volleyball', category: 'team', minTeamSize: 6, maxTeamSize: 12, registrationFee: 800, isActive: true },
+    { name: 'Badminton', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 200, isActive: true },
+    { name: 'Table Tennis', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 200, isActive: true },
+    { name: 'Lawn Tennis', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 300, isActive: true },
+    { name: 'Chess', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 100, isActive: true },
+    { name: 'Athletics', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 150, isActive: true },
+    { name: 'Swimming', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 250, isActive: true },
+    { name: 'Kabaddi', category: 'team', minTeamSize: 7, maxTeamSize: 12, registrationFee: 1000, isActive: true },
+    { name: 'Kho Kho', category: 'team', minTeamSize: 9, maxTeamSize: 12, registrationFee: 800, isActive: true },
+    { name: 'Hockey', category: 'team', minTeamSize: 11, maxTeamSize: 16, registrationFee: 1500, isActive: true },
+    { name: 'Squash', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 400, isActive: true },
+    { name: 'Wrestling', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 300, isActive: true },
+    { name: 'Boxing', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 300, isActive: true },
   ]
 
   for (const sport of sports) {
