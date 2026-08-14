@@ -108,8 +108,9 @@ export default function LiveScoresClient({
 
       {/* SPORT SELECTOR */}
       <section style={{ position: 'relative', zIndex: 10, padding: '32px 0', borderBottom: '1px solid rgba(76,175,80,0.1)' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '12px' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 16px' }}>
+          <div style={{ display: 'flex', gap: '12px', overflowX: 'auto', paddingBottom: '8px', WebkitOverflowScrolling: 'touch' as any, scrollbarWidth: 'none' as any }}>
+            <style>{`.sport-scroll::-webkit-scrollbar { display: none; }`}</style>
             <SportCard
               id="all"
               name="All Sports"
@@ -132,19 +133,19 @@ export default function LiveScoresClient({
       </section>
 
       {/* TABS */}
-      <section style={{ position: 'relative', zIndex: 10, padding: '40px 24px 20px' }}>
+      <section style={{ position: 'relative', zIndex: 10, padding: '40px 16px 20px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '48px' }}>
+          <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '48px', flexWrap: 'wrap' }}>
             {(['live', 'upcoming', 'completed'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setTab(tab)}
                 style={{
-                  padding: '14px 36px',
+                  padding: '12px 24px',
                   fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '14px',
+                  fontSize: '13px',
                   fontWeight: '600',
-                  letterSpacing: '0.1em',
+                  letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   border: selectedTab === tab ? '1px solid rgba(76,175,80,0.6)' : '1px solid rgba(76,175,80,0.25)',
                   borderRadius: '9999px',
@@ -155,7 +156,7 @@ export default function LiveScoresClient({
                   transition: 'all 0.3s ease',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '10px',
+                  gap: '8px',
                   boxShadow: selectedTab === tab ? '0 0 30px rgba(76,175,80,0.4)' : 'none',
                 }}
               >
