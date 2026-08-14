@@ -219,7 +219,7 @@ function RegisterForm({ user, signOut }: { user: User; signOut: () => void }) {
 
   // ── Main render ─────────────────────────────────────────────────────────────
   return (
-    <div style={{ background: 'linear-gradient(180deg,#030A03,#0a1a0a)', minHeight: '100vh', padding: '70px 24px 80px' }}>
+    <div style={{ background: 'linear-gradient(180deg,#030A03,#0a1a0a)', minHeight: '100vh', padding: '70px 16px 80px' }}>
       <div style={{ maxWidth: '1320px', margin: '0 auto' }}>
 
         {/* Responsive CSS */}
@@ -227,6 +227,11 @@ function RegisterForm({ user, signOut }: { user: User; signOut: () => void }) {
           @media (max-width: 1100px) {
             .register-grid { grid-template-columns: 1fr !important; }
             .register-sidebar { display: none !important; }
+          }
+          @media (max-width: 640px) {
+            .register-card { padding: 24px 16px !important; }
+            .register-personal-grid { grid-template-columns: 1fr !important; }
+            .register-payment-grid { grid-template-columns: 1fr !important; }
           }
         `}</style>
 
@@ -255,7 +260,7 @@ function RegisterForm({ user, signOut }: { user: User; signOut: () => void }) {
         )}
 
         {/* Card */}
-        <div style={{ padding: '40px', borderRadius: '20px', border: '2px solid rgba(76,175,80,0.25)', background: 'linear-gradient(135deg,rgba(27,94,32,0.08),rgba(15,30,15,0.75))', backdropFilter: 'blur(16px)', boxShadow: '0 20px 60px rgba(0,0,0,0.45)' }}>
+        <div style={{ padding: '40px', borderRadius: '20px', border: '2px solid rgba(76,175,80,0.25)', background: 'linear-gradient(135deg,rgba(27,94,32,0.08),rgba(15,30,15,0.75))', backdropFilter: 'blur(16px)', boxShadow: '0 20px 60px rgba(0,0,0,0.45)' }} className="register-card">
           <form onSubmit={handleSubmit}>
 
             {/* ── Sport Selector ── */}
@@ -286,7 +291,7 @@ function RegisterForm({ user, signOut }: { user: User; signOut: () => void }) {
                 {/* ── Personal Details ── */}
                 <div style={{ padding: '24px', borderRadius: '14px', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(76,175,80,0.18)', marginBottom: '28px' }}>
                   <h3 style={{ fontFamily: "'Bebas Neue',Impact,sans-serif", fontSize: '20px', color: '#4CAF50', letterSpacing: '0.06em', marginBottom: '20px' }}>👤 PERSONAL DETAILS</h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: '16px' }} className="register-personal-grid">
 
                     <div style={{ gridColumn: '1/-1' }}>
                       <label style={labelStyle}>Full Name *</label>
@@ -417,7 +422,7 @@ function RegisterForm({ user, signOut }: { user: User; signOut: () => void }) {
                 <div style={{ padding: '24px', borderRadius: '14px', background: 'rgba(255,152,0,0.07)', border: '1px solid rgba(255,152,0,0.28)', marginBottom: '28px' }}>
                   <h3 style={{ fontFamily: "'Bebas Neue',Impact,sans-serif", fontSize: '20px', color: '#FF9800', letterSpacing: '0.06em', marginBottom: '20px' }}>💳 PAYMENT — ₹{selectedSport.registrationFee}</h3>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px', alignItems: 'start' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px', alignItems: 'start' }} className="register-payment-grid">
 
                     {/* QR */}
                     <div style={{ padding: '28px', borderRadius: '14px', background: 'white', textAlign: 'center' }}>
