@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Sport {
@@ -319,13 +320,13 @@ model TeamMember {
 model Notice {
   id          String   @id @default(cuid())
   title       String
-  message     String   // SQLite doesn't support @db.Text
-  category    String   // "event", "registration", "result", "general"
-  priority    String   @default("normal") // "urgent", "normal", "info"
-  sendEmail   Boolean  @default(false) // Send email to registered users
-  emailSentTo Int      @default(0) // Count of emails sent
+  message     String   @db.Text
+  category    String
+  priority    String   @default("normal")
+  sendEmail   Boolean  @default(false)
+  emailSentTo Int      @default(0)
   isActive    Boolean  @default(true)
-  createdBy   String   // Admin email
+  createdBy   String
   createdAt   DateTime @default(now())
   
   @@map("notices")
