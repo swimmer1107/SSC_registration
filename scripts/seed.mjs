@@ -1,13 +1,9 @@
-// scripts/seed.mjs - creates tables via raw SQL then seeds data
+// scripts/seed.mjs - seeds data (tables must already exist)
 import { PrismaClient } from '@prisma/client'
 import { createRequire } from 'module'
-import { readFileSync } from 'fs'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
 
 const require = createRequire(import.meta.url)
 const bcrypt = require('bcryptjs')
-const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const prisma = new PrismaClient()
 
@@ -30,35 +26,24 @@ const sports = [
   { name: 'Boxing', category: 'individual', minTeamSize: 1, maxTeamSize: 1, registrationFee: 300 },
 ]
 
-async function createTables() {
-  const sql = readFileSync(
-    join(__dirname, '../prisma/migrations/20260424043736_init/migration.sql'),
-    'utf8'
-  )
-  // Split by semicolon and run each statement
-  const statements = sql
-    .split(';')
-    .map(s => s.trim())
-    .filter(s => s.length > 0 && !s.startsWith('--'))
-
-  for (const stmt of statements) {
+async function main() {
+  // Retry loop - wait for tables to be ready
+  let retries = 10
+  while (retries > 0) {
     try {
-      await prisma.$executeRawUnsafe(stmt)
+      await prisma.adminUser.count()
+      break // tables exist
     } catch (e) {
-      // Ignore "already exists" errors
-      if (!e.message.includes('already exists') && !e.message.includes('duplicate')) {
-        console.warn('SQL warning:', e.message.slice(0, 100))
+      retries--
+      if (retries === 0) {
+        console.error('Tables not ready after retries. Please run migrations manually.')
+        process.exit(0) // exit 0 so app still starts
       }
+      console.log(`Waiting for tables... (${retries} retries left)`)
+      await new Promise(r => setTimeout(r, 3000))
     }
   }
-  console.log('✓ Tables created/verified')
-}
 
-async function main() {
-  console.log('Creating tables...')
-  await createTables()
-
-  console.log('Seeding data...')
   const adminCount = await prisma.adminUser.count()
   if (adminCount === 0) {
     const hash = await bcrypt.hash('Admin@SSC2026', 12)
@@ -81,5 +66,5 @@ async function main() {
 }
 
 main()
-  .catch(e => { console.error('Fatal:', e.message); process.exit(1) })
+  .catch(e => { console.error('Seed error:', e.message); process.exit(0) }) // exit 0 so app still starts
   .finally(() => prisma.$disconnect())
