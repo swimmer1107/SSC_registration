@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-echo ">>> Running Prisma migrations..."
-npx prisma migrate deploy
+echo ">>> Pushing database schema to Supabase..."
+npx prisma db push --accept-data-loss
 
 echo ">>> Seeding initial data..."
 node scripts/seed.mjs
