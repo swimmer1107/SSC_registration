@@ -336,13 +336,19 @@ export default function TeamPageClient({
         {/* Bottom fade */}
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '100px', background: 'linear-gradient(to bottom, transparent, #030A03)', pointerEvents: 'none' }} />
 
-        <div style={{ maxWidth: '1380px', margin: '0 auto', padding: '100px 48px 80px', position: 'relative', zIndex: 1, width: '100%' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 200px', gap: '60px', alignItems: 'center' }}>
+        <div style={{ maxWidth: '1380px', margin: '0 auto', padding: '100px 24px 80px', position: 'relative', zIndex: 1, width: '100%' }}>
+          <style>{`
+            @media (max-width: 768px) {
+              .team-hero-grid { grid-template-columns: 1fr !important; }
+              .team-hero-icons { display: none !important; }
+            }
+          `}</style>
+          <div className="team-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 200px', gap: '60px', alignItems: 'center' }}>
 
             {/* Left */}
             <div>
               {/* Title */}
-              <h1 style={{ fontFamily: "'Bebas Neue', Impact, sans-serif", fontSize: 'clamp(3.2rem, 7vw, 6rem)', letterSpacing: '0.05em', lineHeight: '0.95', marginBottom: '22px' }}>
+              <h1 style={{ fontFamily: "'Bebas Neue', Impact, sans-serif", fontSize: 'clamp(3.2rem, 7vw, 6rem)', letterSpacing: '0.05em', lineHeight: '1.05', marginBottom: '22px' }}>
                 <span style={{ color: 'white' }}>MEET THE </span>
                 <span style={{ background: 'linear-gradient(135deg, #4CAF50 0%, #A5D6A7 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>TEAM</span>
               </h1>
@@ -366,8 +372,8 @@ export default function TeamPageClient({
               </div>
             </div>
 
-            {/* Right — sport icons, centered and spaced */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
+            {/* Right — sport icons */}
+            <div className="team-hero-icons" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
               {[
                 { emoji: '🏏', label: 'Cricket' },
                 { emoji: '⚽', label: 'Football' },
