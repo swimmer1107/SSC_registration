@@ -17,7 +17,7 @@ const schema = z.object({
   }),
   sportId: z.string().min(1),
   isTeamEvent: z.boolean(),
-  teamName: z.string().optional(),
+  teamName: z.string().nullable().optional(),
   teamMembers: z.array(z.object({
     name: z.string().optional(),
     fullName: z.string().optional(),
