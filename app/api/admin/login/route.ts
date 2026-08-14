@@ -49,9 +49,8 @@ export async function POST(request: NextRequest) {
     return response
   } catch (error) {
     console.error('[Admin Login Error]', error)
-    const msg = error instanceof Error ? error.message : String(error)
     return NextResponse.json(
-      { success: false, error: 'Login failed', detail: msg },
+      { success: false, error: 'Login failed' },
       { status: 500 }
     )
   }
