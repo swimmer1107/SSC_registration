@@ -159,7 +159,7 @@ async function handler(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ success: true, registrationId: result })
   } catch (error: unknown) {
     if (error instanceof z.ZodError) {
-      const fields = error.errors.map(e => `${e.path.join('.')}: ${e.message}`).join(', ')
+      const fields = error.issues.map((e: z.ZodIssue) => `${e.path.join('.')}: ${e.message}`).join(', ')
       return NextResponse.json({ success: false, error: `Invalid data: ${fields}` }, { status: 400 })
     }
     const err = error as any
