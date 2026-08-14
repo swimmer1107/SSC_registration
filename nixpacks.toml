@@ -1,3 +1,4 @@
+# Updated: force cache bust for PostgreSQL migration
 [phases.setup]
 nixPkgs = ["nodejs_20"]
 
