@@ -11,17 +11,24 @@ import { DynamicEventsSection } from '@/components/home/DynamicEventsSection'
 export const dynamic = 'force-dynamic'
 
 export default async function HomePage() {
-  const [events, notices] = await Promise.all([
-    prisma.event.findMany({
-      where: { isActive: true, category: 'tournament' },
-      orderBy: { order: 'asc' },
-    }),
-    prisma.notice.findMany({
-      where: { isActive: true },
-      orderBy: { createdAt: 'desc' },
-      take: 4,
-    }),
-  ])
+  let events: any[] = []
+  let notices: any[] = []
+  
+  try {
+    ;[events, notices] = await Promise.all([
+      prisma.event.findMany({
+        where: { isActive: true, category: 'tournament' },
+        orderBy: { order: 'asc' },
+      }),
+      prisma.notice.findMany({
+        where: { isActive: true },
+        orderBy: { createdAt: 'desc' },
+        take: 4,
+      }),
+    ])
+  } catch (e) {
+    console.error('[HomePage] DB error:', e)
+  }
 
   return (
     <>
