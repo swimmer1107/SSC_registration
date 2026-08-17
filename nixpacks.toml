@@ -1,4 +1,4 @@
-# Updated: force cache bust for PostgreSQL migration
+# Force fresh build - pgbouncer fix
 [phases.setup]
 nixPkgs = ["nodejs_20"]
 
