@@ -214,8 +214,11 @@ export default function NoticesPageClient({ notices }: { notices: Notice[] }) {
           </div>
         ) : (
           <div style={{ display: 'grid', gap: '16px' }}>
-            {notices.map(notice => (
-              <NoticeCard key={notice.id} notice={notice} />
+            {notices.map((notice, i) => (
+              <div key={notice.id} style={{ animation: `slideInUp 0.5s cubic-bezier(0,0,0.2,1) ${i * 0.07}s both` }}>
+                <NoticeCard notice={notice} />
+              </div>
+            ))}
             ))}
           </div>
         )}

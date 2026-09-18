@@ -91,6 +91,31 @@ export default async function GalleryPage({
       `}</style>
 
       <div style={{ background: '#030A03', minHeight: '100vh' }}>
+        {/* ── Animation styles for cards ── */}
+        <style>{`
+          .gallery-card {
+            animation: slideInUp 0.5s cubic-bezier(0,0,0.2,1) both;
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), border-color 0.35s ease, box-shadow 0.35s ease !important;
+          }
+          .gallery-card:hover {
+            transform: translateY(-8px) !important;
+            border-color: rgba(76,175,80,0.55) !important;
+            box-shadow: 0 20px 56px rgba(76,175,80,0.18) !important;
+          }
+          .gallery-card:hover .card-overlay { opacity: 1 !important; }
+          .cat-btn { transition: all 0.25s ease; }
+          .cat-btn:hover {
+            background: rgba(76,175,80,0.22) !important;
+            border-color: rgba(76,175,80,0.55) !important;
+            color: #81C784 !important;
+          }
+          .page-btn { transition: all 0.2s ease; }
+          .page-btn:hover {
+            background: rgba(76,175,80,0.22) !important;
+            border-color: rgba(76,175,80,0.5) !important;
+            color: #4CAF50 !important;
+          }
+        `}</style>
 
         {/* ── Hero Section with Video Background ── */}
         <section style={{
@@ -289,7 +314,7 @@ export default async function GalleryPage({
                         overflow: 'hidden',
                         border: '1px solid rgba(76,175,80,0.18)',
                         background: 'rgba(15,25,15,0.6)',
-                        animation: `fadeInUp 0.55s ease ${Math.min(i * 0.06, 0.5)}s both`,
+                        animationDelay: `${Math.min(i * 0.06, 0.5)}s`,
                       }}
                     >
                       {/* Image area */}
