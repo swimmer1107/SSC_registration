@@ -44,12 +44,25 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   const SidebarContent = () => (
     <>
       {/* Logo */}
-      <div style={{ padding: '24px 20px', borderBottom: '1px solid rgba(76,175,80,0.1)' }}>
+      <div style={{
+        padding: '24px 20px',
+        borderBottom: '1px solid rgba(76,175,80,0.1)',
+        background: 'linear-gradient(90deg, rgba(76,175,80,0.06) 0%, transparent 100%)',
+      }}>
         <a href="/admin/dashboard" style={{ textDecoration: 'none' }}>
-          <div style={{ fontFamily: "'Bebas Neue', Impact, sans-serif", fontSize: '24px', color: '#4CAF50', letterSpacing: '0.15em', lineHeight: 1 }}>
+          <div style={{
+            fontFamily: "'Bebas Neue', Impact, sans-serif",
+            fontSize: '24px', color: '#4CAF50',
+            letterSpacing: '0.15em', lineHeight: 1,
+            textShadow: '0 0 20px rgba(76,175,80,0.4)',
+          }}>
             SSC ADMIN
           </div>
-          <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '10px', color: 'rgba(165,214,167,0.4)', letterSpacing: '0.2em', marginTop: '2px' }}>
+          <div style={{
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '10px', color: 'rgba(165,214,167,0.4)',
+            letterSpacing: '0.2em', marginTop: '4px',
+          }}>
             {role ? role.replace('_', ' ') : 'CONTROL PANEL'}
           </div>
         </a>
@@ -100,34 +113,64 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   return (
     <>
       <style>{`
-        .sidebar-link { transition: background 0.2s, color 0.2s; }
-        .sidebar-link:hover { background: rgba(76,175,80,0.1) !important; color: #A5D6A7 !important; }
-        .sidebar-link.active { background: rgba(76,175,80,0.15) !important; color: #4CAF50 !important; }
+        /* ── Admin shell animations ── */
+        @keyframes adminFadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes slideInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+        .sidebar-link { transition: all 0.2s cubic-bezier(0.4,0,0.2,1); }
+        .sidebar-link:hover {
+          background: rgba(76,175,80,0.12) !important;
+          color: #A5D6A7 !important;
+          padding-left: 26px !important;
+        }
+        .sidebar-link.active {
+          background: linear-gradient(90deg, rgba(76,175,80,0.2), rgba(76,175,80,0.08)) !important;
+          color: #4CAF50 !important;
+          box-shadow: inset 0 0 20px rgba(76,175,80,0.05);
+        }
         aside::-webkit-scrollbar { width: 3px; }
         aside::-webkit-scrollbar-thumb { background: rgba(76,175,80,0.15); border-radius: 10px; }
 
-        /* Desktop: side-by-side layout */
-        .admin-shell { display: flex; height: 100vh; overflow: hidden; background: #0a0d14; }
-        .admin-sidebar { display: flex; flex-direction: column; width: 250px; flex-shrink: 0; background: #030509; border-right: 1px solid rgba(76,175,80,0.2); height: 100vh; overflow-y: auto; }
+        /* Desktop layout */
+        .admin-shell {
+          display: flex; height: 100vh; overflow: hidden;
+          background: linear-gradient(135deg, #060a06 0%, #0a0d0a 100%);
+        }
+        .admin-sidebar {
+          display: flex; flex-direction: column;
+          width: 256px; flex-shrink: 0;
+          background: linear-gradient(180deg, #030609 0%, #040a04 100%);
+          border-right: 1px solid rgba(76,175,80,0.18);
+          height: 100vh; overflow-y: auto;
+          box-shadow: 4px 0 24px rgba(0,0,0,0.4);
+        }
         .admin-mobile-header { display: none; }
         .admin-mobile-drawer { display: none; }
-        .admin-main { flex: 1; padding: 32px; overflow-y: auto; color: white; min-width: 0; min-height: 0; }
+        .admin-main {
+          flex: 1; padding: 32px; overflow-y: auto;
+          color: white; min-width: 0; min-height: 0;
+          background: linear-gradient(135deg, rgba(10,16,10,0.95) 0%, rgba(6,12,6,0.98) 100%);
+          animation: adminFadeIn 0.4s cubic-bezier(0,0,0.2,1);
+        }
 
-        /* Mobile: stacked layout */
+        /* Mobile layout */
         @media (max-width: 1023px) {
           .admin-shell { flex-direction: column; }
           .admin-sidebar { display: none; }
           .admin-mobile-header {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 14px 20px; background: #030509;
+            padding: 14px 20px;
+            background: linear-gradient(90deg, #030609, #040a04);
             border-bottom: 1px solid rgba(76,175,80,0.2);
             position: sticky; top: 0; z-index: 200;
+            backdrop-filter: blur(12px);
           }
           .admin-mobile-drawer {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(3,5,9,0.98); backdrop-filter: blur(20px);
+            background: rgba(3,6,9,0.97); backdrop-filter: blur(24px);
             z-index: 300; display: flex; flex-direction: column;
             overflow-y: auto;
+            animation: adminFadeIn 0.25s ease;
           }
           .admin-main { padding: 20px 16px; }
         }

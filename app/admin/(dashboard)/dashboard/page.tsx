@@ -82,12 +82,16 @@ export default async function AdminDashboardPage() {
   return (
     <div>
       {/* Header */}
-      <div style={{ marginBottom: '32px' }}>
+      <div style={{
+        marginBottom: '32px',
+        animation: 'slideInUp 0.4s cubic-bezier(0,0,0.2,1)',
+      }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '10px' }}>
           <h1 style={{
             fontFamily: "'Bebas Neue', Impact, sans-serif",
             fontSize: '42px', color: 'white',
             letterSpacing: '0.1em', margin: 0,
+            textShadow: '0 0 30px rgba(255,255,255,0.1)',
           }}>
             DASHBOARD
           </h1>
@@ -96,6 +100,7 @@ export default async function AdminDashboardPage() {
             fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.08em',
             background: `${roleColor}20`, color: roleColor,
             border: `1px solid ${roleColor}50`,
+            boxShadow: `0 0 12px ${roleColor}20`,
           }}>
             {admin.role.replace('_', ' ')}
           </span>
@@ -109,19 +114,45 @@ export default async function AdminDashboardPage() {
       {stats.length > 0 && (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: `repeat(${Math.min(stats.length, 4)}, 1fr)`,
+          gridTemplateColumns: `repeat(auto-fit, minmax(180px, 1fr))`,
           gap: '20px', marginBottom: '40px',
         }}>
-          {stats.map((stat) => (
+          {stats.map((stat, i) => (
             <div key={stat.label} style={{
-              padding: '24px', borderRadius: '14px',
-              border: '1px solid rgba(76,175,80,0.18)',
-              background: 'rgba(27,94,32,0.05)',
-            }}>
-              <div style={{ fontSize: '28px', marginBottom: '10px' }}>{stat.icon}</div>
+              padding: '24px',
+              borderRadius: '16px',
+              border: `1px solid ${stat.color}30`,
+              background: `linear-gradient(135deg, ${stat.color}08 0%, rgba(3,10,3,0.6) 100%)`,
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              boxShadow: `0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 ${stat.color}15`,
+              transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
+              animation: `slideInUp 0.5s cubic-bezier(0,0,0.2,1) ${i * 0.08}s both`,
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'translateY(-4px)'
+              e.currentTarget.style.boxShadow = `0 12px 40px rgba(0,0,0,0.5), 0 0 20px ${stat.color}20`
+              e.currentTarget.style.borderColor = `${stat.color}60`
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'translateY(0)'
+              e.currentTarget.style.boxShadow = `0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 ${stat.color}15`
+              e.currentTarget.style.borderColor = `${stat.color}30`
+            }}
+            >
+              {/* Top accent line */}
+              <div style={{
+                position: 'absolute', top: 0, left: '20%', right: '20%', height: '2px',
+                background: `linear-gradient(90deg, transparent, ${stat.color}, transparent)`,
+                borderRadius: '0 0 2px 2px',
+              }} />
+              <div style={{ fontSize: '28px', marginBottom: '12px' }}>{stat.icon}</div>
               <p style={{
                 fontFamily: "'Bebas Neue', Impact, sans-serif",
-                fontSize: '38px', color: stat.color, lineHeight: '1', marginBottom: '6px',
+                fontSize: '40px', color: stat.color, lineHeight: '1', marginBottom: '6px',
+                textShadow: `0 0 20px ${stat.color}40`,
               }}>
                 {stat.value ?? '—'}
               </p>
@@ -135,7 +166,6 @@ export default async function AdminDashboardPage() {
           ))}
         </div>
       )}
-
       {/* Quick Actions — role-specific */}
       {quickActions.length > 0 && (
         <div style={{ marginBottom: '40px' }}>
@@ -151,15 +181,34 @@ export default async function AdminDashboardPage() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
             gap: '12px',
           }}>
-            {quickActions.map((action) => (
+            {quickActions.map((action, i) => (
               <a key={action.href} href={action.href} style={{
                 display: 'flex', alignItems: 'center', gap: '10px',
-                padding: '14px 18px', borderRadius: '10px',
-                border: '1px solid rgba(76,175,80,0.25)',
-                background: 'rgba(27,94,32,0.06)',
+                padding: '14px 18px', borderRadius: '12px',
+                border: '1px solid rgba(76,175,80,0.2)',
+                background: 'rgba(27,94,32,0.08)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
                 fontFamily: "'Space Grotesk', sans-serif", fontSize: '13px',
                 color: 'rgba(165,214,167,0.8)', textDecoration: 'none',
-              }}>
+                transition: 'all 0.25s cubic-bezier(0.4,0,0.2,1)',
+                animation: `slideInUp 0.4s cubic-bezier(0,0,0.2,1) ${i * 0.06}s both`,
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(76,175,80,0.15)'
+                e.currentTarget.style.borderColor = 'rgba(76,175,80,0.5)'
+                e.currentTarget.style.color = '#4CAF50'
+                e.currentTarget.style.transform = 'translateY(-2px)'
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(76,175,80,0.15)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(27,94,32,0.08)'
+                e.currentTarget.style.borderColor = 'rgba(76,175,80,0.2)'
+                e.currentTarget.style.color = 'rgba(165,214,167,0.8)'
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+              >
                 <span style={{ fontSize: '18px' }}>{action.icon}</span>
                 {action.label}
               </a>
@@ -179,8 +228,13 @@ export default async function AdminDashboardPage() {
             RECENT REGISTRATIONS
           </h2>
           <div style={{
-            borderRadius: '12px', border: '1px solid rgba(76,175,80,0.18)',
-            background: 'rgba(27,94,32,0.03)', overflow: 'hidden',
+            borderRadius: '16px',
+            border: '1px solid rgba(76,175,80,0.18)',
+            background: 'rgba(27,94,32,0.05)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            overflow: 'hidden',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
           }}>
             {(recentRegs as any[]).length === 0 ? (
               <div style={{ padding: '48px', textAlign: 'center', fontFamily: 'Inter, sans-serif', fontSize: '14px', color: 'rgba(165,214,167,0.4)' }}>
