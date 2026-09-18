@@ -132,3 +132,58 @@ html, body {
   .hide-desktop { display: none !important; }
   .show-mobile-only { display: none !important; }
 }
+
+/* ── Animation Keyframes ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(76,175,80,0.3); }
+  50% { box-shadow: 0 0 40px rgba(76,175,80,0.6); }
+}
+
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes spinLoader {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounceScroll {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* ── Glass Scrollbar (override base) ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(27,94,32,0.05); }
+::-webkit-scrollbar-thumb { background: rgba(76,175,80,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(76,175,80,0.5); }
+
+/* ── Selection ── */
+::selection { background: rgba(76,175,80,0.3); color: #4CAF50; }
