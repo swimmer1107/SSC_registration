@@ -219,7 +219,6 @@ export default function NoticesPageClient({ notices }: { notices: Notice[] }) {
                 <NoticeCard notice={notice} />
               </div>
             ))}
-            ))}
           </div>
         )}
 
