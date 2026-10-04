@@ -45,31 +45,36 @@ export default async function AdminDashboardPage() {
   const admin = await requireAuth()
   const perms = rolePermissions[admin.role]
 
-  // Fetch only stats the role can see
-  const [
-    totalRegistrations,
-    activeEvents,
-    totalSports,
-    pendingApprovals,
-    recentRegs,
-    liveMatches,
-  ] = await Promise.all([
-    perms.canManageRegistrations ? prisma.registration.count() : Promise.resolve(null),
-    perms.canManageEvents        ? prisma.event.count({ where: { status: 'upcoming' } }) : Promise.resolve(null),
-    perms.canManageSports        ? prisma.sport.count() : Promise.resolve(null),
-    perms.canManageRegistrations ? prisma.registration.count({ where: { status: 'pending' } }) : Promise.resolve(null),
-    perms.canManageRegistrations
-      ? prisma.registration.findMany({
-          take: 5,
-          orderBy: { registeredAt: 'desc' },
-          include: { student: true, sport: true },
-        })
-      : Promise.resolve([]),
-    perms.canManageLiveScores
-      ? prisma.liveScore.count({ where: { status: 'live' } })
-      : Promise.resolve(null),
-  ])
+  // Fetch only stats the role can see — wrapped in try/catch so missing tables don't crash
+  let totalRegistrations: number | null = null
+  let activeEvents: number | null = null
+  let totalSports: number | null = null
+  let pendingApprovals: number | null = null
+  let recentRegs: any[] = []
+  let liveMatches: number | null = null
 
+  try {
+    const results = await Promise.allSettled([
+      perms.canManageRegistrations ? prisma.registration.count() : Promise.resolve(null),
+      perms.canManageEvents        ? prisma.event.count({ where: { status: 'upcoming' } }) : Promise.resolve(null),
+      perms.canManageSports        ? prisma.sport.count() : Promise.resolve(null),
+      perms.canManageRegistrations ? prisma.registration.count({ where: { status: 'pending' } }) : Promise.resolve(null),
+      perms.canManageRegistrations
+        ? prisma.registration.findMany({ take: 5, orderBy: { registeredAt: 'desc' }, include: { student: true, sport: true } })
+        : Promise.resolve([]),
+      perms.canManageLiveScores
+        ? prisma.liveScore.count({ where: { status: 'live' } })
+        : Promise.resolve(null),
+    ])
+    totalRegistrations = results[0].status === 'fulfilled' ? results[0].value as number | null : null
+    activeEvents       = results[1].status === 'fulfilled' ? results[1].value as number | null : null
+    totalSports        = results[2].status === 'fulfilled' ? results[2].value as number | null : null
+    pendingApprovals   = results[3].status === 'fulfilled' ? results[3].value as number | null : null
+    recentRegs         = results[4].status === 'fulfilled' ? results[4].value as any[] : []
+    liveMatches        = results[5].status === 'fulfilled' ? results[5].value as number | null : null
+  } catch (e) {
+    console.error('[Dashboard] DB error:', e)
+  }
   const stats = [
     perms.canManageRegistrations && { icon: '📋', value: totalRegistrations, label: 'Total Registrations', color: '#4CAF50' },
     perms.canManageEvents        && { icon: '🎯', value: activeEvents,       label: 'Active Events',        color: '#2196F3' },
